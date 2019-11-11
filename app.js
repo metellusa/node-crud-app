@@ -10,6 +10,8 @@ const dev_db_url = 'mongodb://metellusa:Diare*143@ds115866.mlab.com:15866/heroku
 
 // Set up mongoose connection
 let mongoDB = process.env.MONGODB_URI || dev_db_url;
+let port = process.env.PORT || 1234;
+
 mongoose.connect(mongoDB, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
@@ -23,8 +25,6 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 app.use('/products', product);
-
-let port = 1234;
 
 app.listen(port, () => {
     console.log('Server is up and running on port number ' + port);
