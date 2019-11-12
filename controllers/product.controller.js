@@ -36,11 +36,10 @@ exports.getProductById = function (req, res) {
         if (err) {
             return next(err);
         }
-        res.send({
-            statusCode: 200,
-            result: product,
-            message: 'Product retrieved successfully!'
-        });
+        res.statusCode = 200;
+        res.message = 'Product retrieved successfully!';
+        res.result = product;
+        res.send();
     })
 };
 
@@ -51,10 +50,10 @@ exports.updateProduct = function (req, res) {
         if (err) {
             return next(err);
         }
-        res.send({
-            statusCode: 204,
-            message: 'Product updated successfully!'
-        });
+        res.statusCode = 204;
+        res.message = 'Product updated successfully!';
+        res.result = product;
+        res.send();
     });
 };
 
