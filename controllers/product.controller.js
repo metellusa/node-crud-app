@@ -1,5 +1,12 @@
 const Product = require('../models/product.model');
 
+exports.allProducts = function (req, res) {
+    Product.find({}, function (err, product) {
+        if (err) return next(err);
+        res.send(product);
+    })
+};
+
 exports.productCreate = function (req, res) {
     let product = new Product(
         {

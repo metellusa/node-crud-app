@@ -4,7 +4,7 @@ info:
   version: 1.0.0
   title: Products API
 
-basePath: /
+
 
 consumes:
   - application/json
@@ -15,7 +15,7 @@ paths:
   /products:
     get:
       tags:
-        - products
+        - Products
       summary: Searches products documents
       responses:
         '200':
@@ -27,7 +27,7 @@ paths:
       x-upr-api:
         corp: true
       tags:
-        - products
+        - Products
       summary: Create a product
       operationId: create_product
       parameters:
@@ -48,7 +48,7 @@ paths:
         corp: true
         public: true
       tags:
-        - products
+        - Products
       summary: Retrieves a single product
       responses:
         '200':
@@ -62,11 +62,12 @@ paths:
       x-upr-api:
         corp: true
       tags:
-        - products
+        - Products
       summary: Update a product
       description: >-
         Update an specific product entry
       parameters:
+        - $ref: '#/parameters/id'
         - in: body
           name: request_body
           required: true
@@ -80,7 +81,7 @@ paths:
 
     delete:
       tags:
-        - products
+        - Products
       summary: Delete a specific product
       parameters:
       responses:
@@ -102,4 +103,4 @@ parameters:
   price:
     name: price
     type: string
-    description: The price of product
+    description: The price of productSS
