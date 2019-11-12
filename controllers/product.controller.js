@@ -5,8 +5,8 @@ exports.getAllProducts = function (req, res) {
         if (err) {
             return next(err);
         }
+        res.statusCode = 200;
         res.send({
-            statusCode: 200,
             result: products,
             message: 'Products retrieved successfully!'
         });
@@ -23,11 +23,11 @@ exports.createProduct = function (req, res) {
         if (err) {
             return next(err);
         }
+        res.statusCode = 201;
         res.send({
-            statusCode: 201,
             result: product,
             message: 'Product created successfully!'
-        })
+        });
     })
 };
 
@@ -37,9 +37,10 @@ exports.getProductById = function (req, res) {
             return next(err);
         }
         res.statusCode = 200;
-        res.message = 'Product retrieved successfully!';
-        res.result = product;
-        res.send();
+        res.send({
+            message = 'Product retrieved successfully!',
+            result = product
+        });
     })
 };
 
@@ -51,9 +52,7 @@ exports.updateProduct = function (req, res) {
             return next(err);
         }
         res.statusCode = 204;
-        res.message = 'Product updated successfully!';
-        res.result = product;
-        res.send();
+        res.send('Product updated successfully!');
     });
 };
 
@@ -62,9 +61,7 @@ exports.deleteProduct = function (req, res) {
         if (err) {
             return next(err);
         }
-        res.send({
-            statusCode: 204,
-            message: 'Product deleted successfully!'
-        });
+        res.statusCode = 204;
+        res.send('Product deleted successfully!');
     })
 };
