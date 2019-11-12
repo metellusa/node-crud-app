@@ -6,7 +6,7 @@ exports.getAllProducts = function (req, res) {
             return next(err);
         }
         res.send({
-            status: 200,
+            statusCode: 200,
             result: products,
             message: 'Products retrieved successfully!'
         });
@@ -24,7 +24,7 @@ exports.createProduct = function (req, res) {
             return next(err);
         }
         res.send({
-            status: 201,
+            statusCode: 201,
             result: product,
             message: 'Product created successfully!'
         })
@@ -37,7 +37,7 @@ exports.getProductById = function (req, res) {
             return next(err);
         }
         res.send({
-            status: 200,
+            statusCode: 200,
             result: product,
             message: 'Product retrieved successfully!'
         });
@@ -52,7 +52,7 @@ exports.updateProduct = function (req, res) {
             return next(err);
         }
         res.send({
-            status: 204,
+            statusCode: 204,
             message: 'Product updated successfully!'
         });
     });
@@ -64,7 +64,7 @@ exports.deleteProduct = function (req, res) {
             return next(err);
         }
         res.send({
-            status: 204,
+            statusCode: 204,
             message: 'Product deleted successfully!'
         });
     })
