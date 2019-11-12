@@ -27,9 +27,12 @@ app.use('/products', product);
 app.listen(port, () => {
     console.log('Server is up and running on port number ' + port);
     if (!process.env.PRODUCTION) {
+        const swaggerOptions = {
+            customCss: '.swagger-ui .topbar { display: none }'
+        };
         const swaggerUi = require('swagger-ui-express');
         const yaml = require('yamljs');
-        const swaggerDocument = yaml.load ('./endpoints/products.yaml');
-        app.use('/explorer', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false));
+        const swaggerDocument = yaml.load('./endpoints/products.yaml');
+        app.use('/explorer', swaggerUi.serve, swaggerUi.setup(swaggerDocument, swaggerOptions));
     }
 });
