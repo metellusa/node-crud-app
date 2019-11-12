@@ -1,0 +1,105 @@
+swagger: '2.0'
+
+info:
+  version: 1.0.0
+  title: Products API
+
+basePath: /
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /products:
+    get:
+      tags:
+        - products
+      summary: Searches products documents
+      responses:
+        '200':
+          description: Successful request
+        '400':
+          description: Bad query string argument
+
+    post:
+      x-upr-api:
+        corp: true
+      tags:
+        - products
+      summary: Create a product
+      operationId: create_product
+      parameters:
+        - in: body
+          name: req
+          required: true
+      responses:
+        '200':
+          description: Created a new product
+        '400':
+          description: Bad Request
+
+  /products/{id}:
+    parameters:
+      - $ref: '#/parameters/id'
+    get:
+      x-upr-api:
+        corp: true
+        public: true
+      tags:
+        - products
+      summary: Retrieves a single product
+      responses:
+        '200':
+          description: Successful request
+        '400':
+          description: Bad query string argument
+        '404':
+          description: Product does not exist
+
+    put:
+      x-upr-api:
+        corp: true
+      tags:
+        - products
+      summary: Update a product
+      description: >-
+        Update an specific product entry
+      parameters:
+        - in: body
+          name: request_body
+          required: true
+      responses:
+        '204':
+          description: Successfully updated the product
+        '400':
+          description: Invalid Request
+        '404':
+          description: product does not exist
+
+    delete:
+      tags:
+        - products
+      summary: Delete a specific product
+      parameters:
+      responses:
+        '204':
+          description: Successfully deleted product
+        '404':
+          description: product does not exist
+
+parameters:
+  id:
+    name: id
+    type: string
+    in: path
+    description: The id of the product
+  name:
+    name: name
+    type: string
+    description: The name of product
+  price:
+    name: price
+    type: string
+    description: The price of product

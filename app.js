@@ -1,9 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-// Imports routes for the products
 const product = require('./routes/product.route');
-//initialize the express app
 const app = express();
 
 const dev_db_url = 'mongodb://metellusa:Diare*143@ds115866.mlab.com:15866/heroku_bkmsgpxw';
@@ -28,4 +26,10 @@ app.use('/products', product);
 
 app.listen(port, () => {
     console.log('Server is up and running on port number ' + port);
+    if (!process.env.PRODUCTION) {
+        const swaggerUi = require('swagger-ui-express');
+        const yaml = require('yamljs');
+        const swaggerDocument = yaml.load ('./endpoints/products.yaml');
+        app.use('/explorer', swaggerUi.serve, swaggerUi.setup(swaggerDocument, false));
+    }
 });
