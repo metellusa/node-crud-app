@@ -4,8 +4,6 @@ info:
   version: 1.0.0
   title: Products API
 
-
-
 consumes:
   - application/json
 produces:
@@ -16,91 +14,94 @@ paths:
     get:
       tags:
         - Products
-      summary: Searches products documents
+      summary: Returns an array of all products in the database
       responses:
         '200':
-          description: Successful request
-        '400':
-          description: Bad query string argument
+          description: Products retrieved successfully!
+        '404':
+          description: No products found in database
 
     post:
-      x-upr-api:
-        corp: true
       tags:
         - Products
       summary: Create a product
-      operationId: create_product
       parameters:
-        - in: body
-          name: req
-          required: true
+        - $ref: '#/models/product'
       responses:
-        '200':
-          description: Created a new product
+        '201':
+          description: Product created successfully!
         '400':
           description: Bad Request
 
   /products/{id}:
-    parameters:
-      - $ref: '#/parameters/id'
     get:
-      x-upr-api:
-        corp: true
-        public: true
       tags:
         - Products
-      summary: Retrieves a single product
+      summary: Retrieve a single product
+      parameters:
+        - $ref: '#/parameters/id'
       responses:
         '200':
-          description: Successful request
+          description: Product retrieved successfully!
         '400':
           description: Bad query string argument
         '404':
           description: Product does not exist
 
     put:
-      x-upr-api:
-        corp: true
       tags:
         - Products
       summary: Update a product
-      description: >-
-        Update an specific product entry
       parameters:
         - $ref: '#/parameters/id'
-        - in: body
-          name: request_body
-          required: true
+        - $ref: '#/models/product'
       responses:
         '204':
-          description: Successfully updated the product
+          description: Product updated successfully!
         '400':
           description: Invalid Request
         '404':
-          description: product does not exist
+          description: Product does not exist
 
     delete:
       tags:
         - Products
-      summary: Delete a specific product
+      summary: Delete a product
       parameters:
+        - $ref: '#/parameters/id'
       responses:
         '204':
-          description: Successfully deleted product
+          description: Product deleted successfully!
         '404':
-          description: product does not exist
+          description: Product does not exist
 
 parameters:
   id:
     name: id
     type: string
     in: path
+    required: true
     description: The id of the product
+
+attributes:
   name:
     name: name
     type: string
-    description: The name of product
+    description: The name of the product
   price:
     name: price
     type: string
-    description: The price of productSS
+    description: The price of the product
+
+models:
+  product:
+    name: product
+    type: object
+    in: body
+    properties:
+      name:
+        $ref: '#/attributes/name'
+      price:
+        $ref: '#/attributes/price'
+    required:
+      - price

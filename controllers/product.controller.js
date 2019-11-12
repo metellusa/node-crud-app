@@ -1,45 +1,71 @@
 const Product = require('../models/product.model');
 
-exports.allProducts = function (req, res) {
-    Product.find({}, function (err, product) {
-        if (err) return next(err);
-        res.send(product);
-    })
-};
-
-exports.productCreate = function (req, res) {
-    let product = new Product(
-        {
-            name: req.body.name,
-            price: req.body.price
-        }
-    );
-
-    product.save(function (err) {
+exports.getAllProducts = function (req, res) {
+    Product.find({}, function (err, products) {
         if (err) {
             return next(err);
         }
-        res.send('Product Created successfully')
+        res.send({
+            status: 200,
+            result: products,
+            message: 'Products retrieved successfully!'
+        });
     })
 };
 
-exports.productDetails = function (req, res) {
+exports.createProduct = function (req, res) {
+    let product = new Product({
+        name: req.body.name,
+        price: req.body.price
+    });
+
+    product.save(function (err, product) {
+        if (err) {
+            return next(err);
+        }
+        res.send({
+            status: 201,
+            result: product,
+            message: 'Product created successfully!'
+        })
+    })
+};
+
+exports.getProductById = function (req, res) {
     Product.findById(req.params.id, function (err, product) {
-        if (err) return next(err);
-        res.send(product);
+        if (err) {
+            return next(err);
+        }
+        res.send({
+            status: 200,
+            result: product,
+            message: 'Product retrieved successfully!'
+        });
     })
 };
 
-exports.productUpdate = function (req, res) {
-    Product.findByIdAndUpdate(req.params.id, {$set: req.body}, function (err, product) {
-        if (err) return next(err);
-        res.send('Product udpated.');
+exports.updateProduct = function (req, res) {
+    Product.findByIdAndUpdate(req.params.id, {
+        $set: req.body
+    }, function (err, product) {
+        if (err) {
+            return next(err);
+        }
+        res.send({
+            status: 204,
+            message: 'Product updated successfully!'
+        });
     });
 };
 
-exports.productDelete = function (req, res) {
+exports.deleteProduct = function (req, res) {
     Product.findByIdAndRemove(req.params.id, function (err) {
-        if (err) return next(err);
-        res.send('Deleted successfully!');
+        if (err) {
+            return next(err);
+        }
+        res.send({
+            status: 204,
+            message: 'Product deleted successfully!'
+        });
     })
 };
