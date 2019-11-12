@@ -38,8 +38,8 @@ exports.getProductById = function (req, res) {
         }
         res.statusCode = 200;
         res.send({
-            message = 'Product retrieved successfully!',
-            result = product
+            message: 'Product retrieved successfully!',
+            result: product
         });
     })
 };
