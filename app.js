@@ -3,20 +3,19 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const product = require('./routes/product.route');
 const app = express();
-
-const dev_db_url = 'mongodb://metellusa:Diare*143@ds115866.mlab.com:15866/heroku_bkmsgpxw';
+const DEV_DB_URL = 'mongodb://metellusa:Diare*143@ds115866.mlab.com:15866/heroku_bkmsgpxw';
 
 // Set up mongoose connection
-let mongoDB = process.env.MONGODB_URI || dev_db_url;
-let port = process.env.PORT || 1234;
+const mongoDB = process.env.MONGODB_URI || DEV_DB_URL;
+const port = process.env.PORT || 1234;
 
 mongoose.connect(mongoDB, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
 });
 mongoose.Promise = global.Promise;
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+const dbConnection = mongoose.connection;
+dbConnection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
