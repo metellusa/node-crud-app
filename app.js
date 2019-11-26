@@ -22,7 +22,7 @@ app.listen(config.db.port, () => {
     if (!config.PRODUCTION) {
         const yaml = require('yamljs');
         const swaggerUi = require('swagger-ui-express');
-        const swaggerDocument = yaml.load('./endpoints/products.yaml');
+        const swaggerDocument = yaml.load('./yaml/products.yaml');
         app.use('/explorer', swaggerUi.serve, swaggerUi.setup(swaggerDocument, config.swagger.options));
     }
 });
