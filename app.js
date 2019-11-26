@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const product = require('./routes/product.route');
 const config = require('./config/config');
-const app = express();
+const app = module.exports = express();
 
 mongoose.connect(config.db.url, config.db.options);
 mongoose.Promise = global.Promise;
