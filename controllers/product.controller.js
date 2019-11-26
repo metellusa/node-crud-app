@@ -1,10 +1,10 @@
 const Product = require('../models/product.model');
 const mongoose = require('mongoose');
 
-exports.getAllProducts = function (req, res) {
+exports.getAllProducts = (req, res) => {
     const operationId = 'product.controller.getAllProducts';
 
-    Product.find({}, function (err, products) {
+    Product.find({}, (err, products) => {
         if (err) {
             return next(err);
         }
@@ -16,7 +16,7 @@ exports.getAllProducts = function (req, res) {
     })
 };
 
-exports.createProduct = function (req, res) {
+exports.createProduct = (req, res) => {
     const operationId = 'product.controller.createProduct';
 
     let product = new Product({
@@ -24,7 +24,7 @@ exports.createProduct = function (req, res) {
         price: req.body.price
     });
 
-    product.save(function (err, product) {
+    product.save((err, product) => {
         if (err) {
             return next(err);
         }
@@ -36,7 +36,7 @@ exports.createProduct = function (req, res) {
     })
 };
 
-exports.getProductById = function (req, res) {
+exports.getProductById = (req, res) => {
     const operationId = 'product.controller.getProductById';
 
     Product.findById(req.params.id, (err, product) => {
@@ -61,12 +61,12 @@ exports.getProductById = function (req, res) {
         })
 };
 
-exports.updateProduct = function (req, res) {
+exports.updateProduct = (req, res) => {
     const operationId = 'product.controller.updateProduct';
 
     Product.findByIdAndUpdate(req.params.id, {
         $set: req.body
-    }, function (err, product) {
+    }, (err, product) => {
         if (err) {
             return next(err);
         }
@@ -75,10 +75,10 @@ exports.updateProduct = function (req, res) {
     });
 };
 
-exports.deleteProduct = function (req, res) {
+exports.deleteProduct = (req, res) => {
     const operationId = 'product.controller.deleteProduct';
     
-    Product.findByIdAndRemove(req.params.id, function (err) {
+    Product.findByIdAndRemove(req.params.id, (err) => {
         if (err) {
             return next(err);
         }
