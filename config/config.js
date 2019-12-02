@@ -6,7 +6,7 @@ exports.appInfo = {
     version: "0.0.0.0",
     name: "Products API",
     logLevel: process.env.LOG_LEVEL || "INFO",
-    deployVersion: process.env.DEPLOY_VERSION || "localhost"
+    environment: this.PRODUCTION ? "production" : "localhost"
 }
 
 exports.db = {
